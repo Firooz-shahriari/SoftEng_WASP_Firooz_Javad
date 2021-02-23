@@ -23,7 +23,14 @@ Outputs:
         theta_opt: optimal point as CGD is used for comparison
         F_opt: optimal value as CGD is used for comparison
 """
-
+#-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+import numpy as np
+import copy as cp
+import utilities as ut
+from numpy import linalg as LA
+#-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 def CGD(pr,learning_rate,K,theta_0):
     theta = [theta_0]
     for k in range(K):

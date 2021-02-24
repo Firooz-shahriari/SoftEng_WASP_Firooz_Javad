@@ -7,7 +7,14 @@ Input:  self.size: Number of  graph Nodes
         self.prob: probality of having edge between 2 nodes
 Output: Adjacency matrix of the graph.
 """
-
+#-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+import numpy as np
+from numpy import linalg as LA
+import math
+import networkx as nx
+#-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 class Random:
     """ Initializetion of parameters """
     def __init__(self,number_of_nodes, prob):
@@ -31,7 +38,7 @@ class Random:
 
         """ Until here, we have the adjacency matrix of arandom directed graph,
             but we are not sure whether it is stringly connected or not! """
-        GG = nx.from_numpy_matrix(np.matrix(D), create_using=nx.DiGraph)
+        GG = nx.from_numpy_matrix(D, create_using=nx.DiGraph)
         largest = max(nx.kosaraju_strongly_connected_components(GG), key=len)
 
         adj = np.zeros((len(largest), len(largest)))
@@ -58,6 +65,9 @@ class Random:
         for i in range(self.size):
             if U[i][i] == 1.:
                 U[i][i] = 0.
+            for j in range(self.size):
+                if U[i][j] == 1:
+                    U[j][i] = 1
         return U
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
@@ -70,7 +80,7 @@ Input:   self.size: number of graph nodes.
 Output:  The adjacency matrix
 """
 
-class Exponential_graph:
+class Exponential:
     """ Initializatio of the number of nodes """
     def __init__(self,number_of_nodes):
         self.size = number_of_nodes

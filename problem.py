@@ -39,3 +39,17 @@ class problem():
 
     def grad(self, theta):
         pass
+
+
+    def local_projection(self, idx, theta):
+        tmp = np.inner(self.A[idx],theta[idx]) - self.b[idx]
+        if tmp < 0:
+            return theta[idx]
+        else:
+            return theta[idx] - tmp*( (self.A[idx]) / (np.linalg.norm(self.A[idx])) )
+
+    def network_projection(self, theta):
+        proj = np.zeros((self.n, self.p))
+        for i in range(self.n):
+            proj[i] = self.local_projection(i, theta)
+        return proj

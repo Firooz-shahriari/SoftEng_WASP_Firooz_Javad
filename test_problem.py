@@ -18,9 +18,11 @@ class test_Problem(unittest.TestCase):
 
         self.pr1 = problem(n, A1, b, C1, e)
         self.pr2 = problem(n, A2, b, C2, e)
-
+        self.n   = n 
+        self.p   = p
         self.theta1 = np.random.randn(p)
         self.theta2 = np.zeros(p)
+        self.theta  = np.zeros((n,p))
 
     def tearDown(self):
         pass
@@ -37,11 +39,13 @@ class test_Problem(unittest.TestCase):
     def test_F_val_3(self):
         self.assertEqual(self.pr2.F_val(self.theta1), 5.617305102469416)
 
+    """ Test localgrad method on a predefined fuction """
     def test_localgrad(self):
-        pass
+        self.assertTrue((self.pr2.localgrad(self.theta2, 0) == np.zeros(self.p)).all())
 
+    """ Test networkgrad method on a predefined fuction """
     def test_networkGrad(self):
-        pass
+        self.assertTrue((self.pr2.networkgrad(self.theta) == np.zeros((self.n,self.p))).all())
 
     def test_local_projection(self):
         pass

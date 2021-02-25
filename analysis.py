@@ -46,3 +46,15 @@ class error:
         for k in range(K):
             result.append( error.cost_point(self, iterates[k]) )
         return result
+
+    def feasibility_gap_syn2_1(self, iterates):
+        K = iterates.shape[0]
+        result = [ ]
+        A = self.pr.A
+        n = np.sum(A**2, axis=1)
+        n = n**(1/2)
+        for k in range(K):
+            tmp = (np.matmul(A, iterates[k]) - self.pr.b )/ n
+            tmp[tmp<0] = 0
+            result.append( np.sum(tmp**2) )
+        return result

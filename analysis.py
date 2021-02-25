@@ -22,3 +22,27 @@ class error:
         Y_predict = np.matmul( self.X, theta )
         error = Y_predict * self.Y < 0
         return sum(error)/self.N
+
+
+    def theta_gap_path(self, iterates):
+        return np.apply_along_axis( LA.norm, 1, iterates - self.theta_opt ) **2
+
+    def cost_gap_point(self, theta):
+        return self.pr.F_val(theta) - self.F_opt
+
+    def cost_gap_path(self, iterates):
+        K = len(iterates)
+        result = [ ]
+        for k in range(K):
+            result.append( error.cost_gap_point(self, iterates[k]) )
+        return result
+
+    def cost_point(self, theta):
+        return self.pr.F_val(theta)
+
+    def cost_path(self, iterates):
+        K = len(iterates)
+        result = [ ]
+        for k in range(K):
+            result.append( error.cost_point(self, iterates[k]) )
+        return result

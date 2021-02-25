@@ -1,4 +1,4 @@
-import problem 
+from problem import problem
 import unittest
 import numpy as np
 

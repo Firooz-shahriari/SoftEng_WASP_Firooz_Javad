@@ -47,11 +47,13 @@ class test_Problem(unittest.TestCase):
     def test_networkGrad(self):
         self.assertTrue((self.pr2.networkgrad(self.theta) == np.zeros((self.n,self.p))).all())
 
+    """ Test local_orojection method on a predefined constraint at zero point"""
     def test_local_projection(self):
-        pass
+        self.assertTrue((self.pr2.local_projection(0, self.theta) == np.zeros(self.p)).all())
 
+    """ Test network_projection method on a predefined constraint at zero point """
     def test_network_projection(self):
-        pass
+        self.assertTrue((self.pr2.network_projection(self.theta) == np.zeros((self.n,self.p))).all())
 
 
 if __name__ == '__main__':

@@ -3,6 +3,15 @@ import numpy as np
 from numpy import linalg as LA
 from sklearn.preprocessing import normalize
 
+"""
+This class is defined for comparison of algorithms with each other. 
+when we have Path_...., it means that the mer=tric is computed at all iterations. 
+otherwise, for one singular point.
+The metrics that are important for distributed optimization are:
+feasibility gap or distance from constraints 
+optimality gap defined as distance to optimal value
+there are represented by feasibility gap and cost_gap in code. 
+"""
 class error:
     def __init__(self, problem, model_optimal, cost_optimal):
         self.pr = problem                                       ## problem class

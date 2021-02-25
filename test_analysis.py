@@ -43,5 +43,25 @@ class TestAnalysis(unittest.TestCase):
         self.assertTrue((self.pr1.F_val(self.theta1) == self.error1.cost_gap_point(self.theta1)).all())
         self.assertTrue((self.pr2.F_val(self.theta1) == self.error2.cost_gap_point(self.theta1)).all())
 
+    def test_cost_gap_path(self):
+        f_val1 = np.zeros(self.n)
+        f_val2 = np.zeros(self.n)
+        for i in range(self.n):
+            f_val1[i] = self.pr1.F_val(self.thet1[i])
+            f_val2[i] = self.pr2.F_val(self.thet1[i])
+        self.assertTrue( ( f_val1 == self.error1.cost_gap_path(self.thet1) ).all() )
+        self.assertTrue( ( f_val2 == self.error2.cost_gap_path(self.thet1) ).all() )
+
+    def test_cost_point(self):
+        self.assertTrue( ( self.pr1.F_val(self.theta1) == self.error1.cost_point(self.theta1) ).all() )
+        self.assertTrue( ( self.pr2.F_val(self.theta1) == self.error2.cost_point(self.theta1) ).all() )
+
+    def test_cost_path(self):
+        f_val = np.zeros(self.n)
+        for i in range(self.n):
+            f_val[i] = self.pr1.F_val(self.thet1[i])
+        self.assertTrue( ( f_val == self.error1.cost_path(self.thet1) ).all() )
+
+
 if __name__ == '__main__':
     unittest.main()

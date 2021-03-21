@@ -12,3 +12,5 @@ def monitor_testing(name,current,total):
 
 def function(name):
     pass
+def function(name):
+    pass

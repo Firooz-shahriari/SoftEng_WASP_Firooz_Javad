@@ -9,8 +9,3 @@ def monitor(name,current,total):
 def monitor_testing(name,current,total):
     if (current+1) % (total/10) == 0:
         return f'{name} {int(100*(current+1)/total)}% completed'
-
-def function(name):
-    pass
-def function(name):
-    pass

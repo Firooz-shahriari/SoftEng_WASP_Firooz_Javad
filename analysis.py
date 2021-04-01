@@ -4,13 +4,13 @@ from numpy import linalg as LA
 from sklearn.preprocessing import normalize
 
 """
-This class is defined for comparison of algorithms with each other. 
-when we have Path_...., it means that the mer=tric is computed at all iterations. 
+This class is defined for comparison of algorithms with each other.
+when we have Path_...., it means that the mer=tric is computed at all iterations.
 otherwise, for one singular point.
 The metrics that are important for distributed optimization are:
-feasibility gap or distance from constraints 
+feasibility gap or distance from constraints
 optimality gap defined as distance to optimal value
-there are represented by feasibility gap and cost_gap in code. 
+there are represented by feasibility gap and cost_gap in code.
 """
 class error:
     def __init__(self, problem, model_optimal, cost_optimal):
@@ -36,14 +36,14 @@ class error:
     def theta_gap_path(self, iterates):
         return np.apply_along_axis( LA.norm, 1, iterates - self.theta_opt ) **2
 
-    def cost_gap_point(self, theta):
-        return self.pr.F_val(theta) - self.F_opt
+    # def cost_gap_point(self, theta):
+    #     return self.pr.F_val(theta) - self.F_opt
 
     def cost_gap_path(self, iterates):
         K = len(iterates)
         result = [ ]
         for k in range(K):
-            result.append( error.cost_gap_point(self, iterates[k]) )
+            result.append( self.pr.F_val(iterates[k]) - self.F_opt )
         return result
 
     def cost_point(self, theta):

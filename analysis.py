@@ -36,9 +36,6 @@ class error:
     def theta_gap_path(self, iterates):
         return np.apply_along_axis( LA.norm, 1, iterates - self.theta_opt ) **2
 
-    # def cost_gap_point(self, theta):
-    #     return self.pr.F_val(theta) - self.F_opt
-
     def cost_gap_path(self, iterates):
         K = len(iterates)
         result = [ ]

@@ -30,6 +30,8 @@ class error:
     def point_cls_error(self, theta):
         Y_predict = np.matmul( self.X, theta )
         error = Y_predict * self.Y < 0
+        if Self.N <= 1e5:
+            error = Y_predict / self.Y < 0
         return sum(error)/self.N
 
 

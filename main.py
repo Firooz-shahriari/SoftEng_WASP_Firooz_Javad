@@ -5,6 +5,7 @@ from matplotlib.font_manager import FontProperties
 from graph import Exponential, Random
 from analysis import error
 from problem import problem
+from utilities import graph_matrices
 import Algorithms as dopt
 import matplotlib as mpl
 import time
@@ -43,16 +44,8 @@ lr_1 = problem(n, AA, bb, CC, ee)
 error_lr_1 = error(lr_1,np.zeros(n),0)
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
-UG = Random(n, 0.55).directed()
-adj = UG - np.eye(n)
-row_sum = np.sum(adj, axis = 1)
-col_sum = np.sum(adj, axis = 0)
-l_in  = np.diag(row_sum) - adj
-l_out = np.diag(col_sum) - adj
-RS  = l_in  / (LDF*np.max(row_sum))     # Row stochastic
-CS  = l_out / (LDF*np.max(col_sum))     # Column Stochastic
-ZR  = np.eye(n) - RS                  # Zero Row-sum
-ZC  = np.eye(n) - CS                  # Zero Column-sum
+pseudo_adj     = Random(n, 0.55).directed()
+ZR, ZC, RS, CS = graph_matrices(pseudo_adj, n, LDF)
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 theta_ddps = dopt.DDPS(lr_1, RS, CS, p, int( depoch ),theta_1, eps)

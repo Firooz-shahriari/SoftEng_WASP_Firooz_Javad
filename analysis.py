@@ -53,7 +53,7 @@ class error:
             result.append( error.cost_point(self, iterates[k]) )
         return result
 
-    def feasibility_gap_syn2_1(self, iterates):
+    def feasibility_gap(self, iterates):
         K = iterates.shape[0]
         result = [ ]
         A = self.pr.A

@@ -49,17 +49,17 @@ row_sum = np.sum(adj, axis = 1)
 col_sum = np.sum(adj, axis = 0)
 l_in  = np.diag(row_sum) - adj
 l_out = np.diag(col_sum) - adj
-R222  = l_in  / (LDF*np.max(row_sum))
-C222  = l_out / (LDF*np.max(col_sum))
-R111  = np.eye(n) - R222
-C111  = np.eye(n) - C222
+RS  = l_in  / (LDF*np.max(row_sum))     # Row stochastic
+CS  = l_out / (LDF*np.max(col_sum))     # Column Stochastic
+ZR  = np.eye(n) - RS                  # Zero Row-sum
+ZC  = np.eye(n) - CS                  # Zero Column-sum
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
-theta_ddps = dopt.DDPS(lr_1, R111, C111, p, int( depoch ),theta_1, eps)
+theta_ddps = dopt.DDPS(lr_1, RS, CS, p, int( depoch ),theta_1, eps)
 res_F_ddps = error_lr_1.cost_gap_path( np.sum(theta_ddps,axis = 1)/n)
 fesgp_ddps = error_lr_1.feasibility_gap_syn2_1(np.sum(theta_ddps,axis = 1)/n)
 
-theta_DAGP = dopt.ADDOPT(lr_1, R111 , C111  , step_size4, int( depoch ), theta_1)
+theta_DAGP = dopt.ADDOPT(lr_1, ZR, ZC, step_size4, int( depoch ), theta_1)
 res_F_DAGP = error_lr_1.cost_path( np.sum(theta_DAGP,axis = 1)/n)
 fesgp_DAGP = error_lr_1.feasibility_gap_syn2_1(np.sum(theta_DAGP,axis = 1)/n)
 # ------------------------------------------------------------------------------

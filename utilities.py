@@ -1,4 +1,5 @@
 import numpy as np
+import networkx as nx
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib.font_manager import FontProperties
@@ -52,4 +53,12 @@ def plot_figs(y1, y2, fonts1, fonts2, mark_every, linewidth, Y_label, X_label, L
     timestamp = np.array([int(filename)])
     filename = str(timestamp[0])
     plt.savefig( path + ".pdf", format = 'pdf', dpi = 4000, pad_inches=0.05, bbox_inches ='tight')
+    plt.show(block = Block)
+
+def plot_graph( graph, path, Block):
+    plt.figure()
+    G = nx.from_numpy_matrix(np.matrix(graph), create_using=nx.DiGraph)
+    layout = nx.circular_layout(G)
+    nx.draw(G, layout)
+    plt.savefig( path + ".pdf", format = 'pdf', dpi = 4000, pad_inches=0, bbox_inches ='tight')
     plt.show(block = Block)

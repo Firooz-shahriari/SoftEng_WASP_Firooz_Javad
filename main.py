@@ -5,7 +5,7 @@ from matplotlib.font_manager import FontProperties
 from graph import Exponential, Random
 from analysis import error
 from problem import problem
-from utilities import graph_matrices, plot_figs
+from utilities import graph_matrices, plot_figs, plot_graph
 import Algorithms as dopt
 import matplotlib as mpl
 import time
@@ -60,10 +60,5 @@ fesgp_DAGP = error_lr_1.feasibility_gap(np.sum(theta_DAGP,axis = 1)/n)
 plot_figs(res_F_DAGP, res_F_ddps, 16, 15, 5000, 2, 'Objective Value',   'Iterations', ('ADDOPT', 'DDPS'), os.path.join(output_path, 'objective'),   Block = False )
 plot_figs(fesgp_DAGP, fesgp_ddps, 16, 15, 5000, 2, 'Feasibility Error', 'Iterations', ('ADDOPT', 'DDPS'), os.path.join(output_path, 'feasibility'), Block = False )
 #------------------------------------------------------------------------------
-plt.figure(5)
-G = nx.from_numpy_matrix(np.matrix(pseudo_adj), create_using=nx.DiGraph)
-layout = nx.circular_layout(G)
-nx.draw(G, layout)
-path = os.path.join(output_path, 'graph')
-plt.savefig( path + ".pdf", format = 'pdf', dpi = 4000, pad_inches=0, bbox_inches ='tight')
+plot_graph(pseudo_adj, os.path.join(output_path, 'graph'), Block = False)
 #------------------------------------------------------------------------------

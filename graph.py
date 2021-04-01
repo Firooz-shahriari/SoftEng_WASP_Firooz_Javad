@@ -90,8 +90,7 @@ class Exponential:
         U = np.zeros( (self.size,self.size) )
         for i in range( self.size ):
             U[i][i] = 0
-            hops = np.array( range( int(math.log(self.size-1,2)) + 1 ) )
-            neighbors = np.mod( i + 2 ** hops, self.size )
+            neighbors = Expo_Neighbors(self.size)
             for j in neighbors:
                 U[i][j] = 1
                 U[j][i] = 1
@@ -102,8 +101,12 @@ class Exponential:
         D = np.zeros( (self.size,self.size) )
         for i in range( self.size ):
             D[i][i] = 0
-            hops = np.array( range( int(math.log(self.size-1,2)) + 1 ) )
-            neighbors = np.mod( i + 2 ** hops, self.size )
+            neighbors = Expo_Neighbors(self.size)
             for j in neighbors:
                 D[i][j] = 1
         return D
+
+
+def Expo_Neighbors(size):
+    hops = np.array( range( int(math.log(size-1,2)) + 1 ) )
+    return np.mod( i + 2 ** hops, size )

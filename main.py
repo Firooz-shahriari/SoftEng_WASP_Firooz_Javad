@@ -15,7 +15,7 @@ import os
 #-------------------------------------------------------------------------------
 # np.random.seed(0)
 depoch      = 1000
-size           = 10
+size        = 10
 dim         = 20
 LDF         = 2           # Laplacian dividing factor
 Edge_prob   = 0.55        # edge probability

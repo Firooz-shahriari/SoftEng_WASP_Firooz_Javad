@@ -54,12 +54,12 @@ class Random:
 
     """ Undirected Random Graph """
     def undirected(self):
-        nn = self.size*self.size
-        indices = np.arange(nn)
+        edges = self.size*self.size
+        indices = np.arange(edges)
         np.random.shuffle(indices)
-        nonz = np.int(np.floor(nn*self.prob))
+        nonz = np.int(np.floor(edges*self.prob))
         non_zero_ind = indices[:nonz]
-        Z = np.zeros(nn)
+        Z = np.zeros(edges)
         Z[non_zero_ind] = 1.0
         U = Z.reshape(self.size,self.size)
         for i in range(self.size):

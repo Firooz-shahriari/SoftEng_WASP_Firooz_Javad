@@ -10,7 +10,6 @@ import Algorithms as dopt
 import matplotlib as mpl
 import time
 import os
-mpl.rcParams['text.usetex'] = True
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 # np.random.seed(0)
@@ -58,6 +57,7 @@ fesgp_DAGP = error_lr_1.feasibility_gap_syn2_1(np.sum(theta_DAGP,axis = 1)/n)
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # plt.rcParams['font.size'] = 28
+mpl.rcParams['text.usetex'] = True
 plt.rcParams['axes.linewidth'] = 2
 plt.rcParams["font.family"] = "Arial"
 font = FontProperties()

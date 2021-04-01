@@ -31,11 +31,11 @@ import utilities as ut
 from numpy import linalg as LA
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
-def CGD(pr,learning_rate,K,theta_0):
+def Centralized_gradient_descent(pr,learning_rate,K,theta_0):
     theta = [theta_0]
     for k in range(K):
         theta.append( theta[-1] - learning_rate * pr.grad(theta[-1]) )
-        ut.monitor('CGD',k,K)
+        ut.monitor('Centralized Gradient Descent',k,K)
     theta_opt = theta[-1]
     F_opt = pr.F_val(theta[-1])
     return theta, theta_opt, F_opt

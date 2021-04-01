@@ -23,15 +23,7 @@ class Random:
 
     """ Directed Rnadom graph """
     def directed(self):
-        edges = self.size*self.size
-        indices = np.arange(edges)
-        np.random.shuffle(indices)
-        nonz = np.int(np.floor(edges*self.prob))
-        non_zero_ind = indices[:nonz]
-        Z = np.zeros(edges)
-        Z[non_zero_ind] = 1.0
-        D = Z.reshape(self.size,self.size)
-
+        D = self.Initial_Laplacian(self.size, self.prob)
         for i in range(self.size):
             if D[i][i] == 1.:
                 D[i][i] = 0.
@@ -54,14 +46,7 @@ class Random:
 
     """ Undirected Random Graph """
     def undirected(self):
-        edges = self.size*self.size
-        indices = np.arange(edges)
-        np.random.shuffle(indices)
-        nonz = np.int(np.floor(edges*self.prob))
-        non_zero_ind = indices[:nonz]
-        Z = np.zeros(edges)
-        Z[non_zero_ind] = 1.0
-        U = Z.reshape(self.size,self.size)
+        U = self.Initial_Laplacian(self.size, self.prob)
         for i in range(self.size):
             if U[i][i] == 1.:
                 U[i][i] = 0.
@@ -69,6 +54,16 @@ class Random:
                 if U[i][j] == 1:
                     U[j][i] = 1
         return U
+
+    def Initial_Laplacian(self, size, prob):
+        edges = size*size
+        indices = np.arange(edges)
+        np.random.shuffle(indices)
+        nonz = np.int(np.floor(edges*prob))
+        non_zero_ind = indices[:nonz]
+        Z = np.zeros(edges)
+        Z[non_zero_ind] = 1.0
+        return Z.reshape(size,size)
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 

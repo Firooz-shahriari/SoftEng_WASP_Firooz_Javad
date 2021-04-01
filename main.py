@@ -16,6 +16,7 @@ mpl.rcParams['text.usetex'] = True
 depoch      = 1000
 n           = 10
 dim         = 20
+LDF         = 2           # Laplacian dividing factor
 output_path = "plots"
 
 AA = np.random.randn(n, dim)
@@ -48,8 +49,8 @@ row_sum = np.sum(adj, axis = 1)
 col_sum = np.sum(adj, axis = 0)
 l_in  = np.diag(row_sum) - adj
 l_out = np.diag(col_sum) - adj
-R222  = l_in  / (2*np.max(row_sum))
-C222  = l_out / (2*np.max(col_sum))
+R222  = l_in  / (LDF*np.max(row_sum))
+C222  = l_out / (LDF*np.max(col_sum))
 R111  = np.eye(n) - R222
 C111  = np.eye(n) - C222
 #-------------------------------------------------------------------------------

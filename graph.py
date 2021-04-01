@@ -23,12 +23,12 @@ class Random:
 
     """ Directed Rnadom graph """
     def directed(self):
-        nn = self.size*self.size
-        indices = np.arange(nn)
+        edges = self.size*self.size
+        indices = np.arange(edges)
         np.random.shuffle(indices)
-        nonz = np.int(np.floor(nn*self.prob))
+        nonz = np.int(np.floor(edges*self.prob))
         ind = indices[:nonz]
-        Z = np.zeros(nn)
+        Z = np.zeros(edges)
         Z[ind] = 1.0
         D = Z.reshape(self.size,self.size)
 

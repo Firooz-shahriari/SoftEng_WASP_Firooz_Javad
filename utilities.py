@@ -18,17 +18,19 @@ def monitor_testing(name,current,total):
 
 
 def graph_matrices(pseudo_adj, size, LDF):
-    adj = pseudo_adj - np.eye(size)
-    row_sum = np.sum(adj, axis = 1)
-    col_sum = np.sum(adj, axis = 0)
-    l_in  = np.diag(row_sum) - adj
-    l_out = np.diag(col_sum) - adj
-    RS  = l_in  / (LDF*np.max(row_sum))     # Row stochastic
-    CS  = l_out / (LDF*np.max(col_sum))     # Column Stochastic
+    max_sum_in, l_in   = laplacian_matrix(pseudo_adj, 1, size)
+    max_sum_out, l_out = laplacian_matrix(pseudo_adj, 0, size)
+    RS  = l_in  / (LDF*max_sum_in)      # Row stochastic
+    CS  = l_out / (LDF*max_sum_out)     # Column Stochastic
     ZR  = np.eye(size) - RS                  # Zero Row-sum
     ZC  = np.eye(size) - CS                  # Zero Column-sum
     return ZR, ZC, RS, CS
 
+def laplacian_matrix(graph, AXis, size):
+    adj  = graph - np.eye(size)
+    sum  = np.sum(adj, axis = AXis)
+    lap  = np.diag(sum) - adj
+    return np.max(sum), lap
 
 def plot_figs(y1, y2, fonts1, fonts2, mark_every, linewidth, Y_label, X_label, LEGEND, path, grid = True, Block = False):
     plt.rcParams['axes.linewidth'] = 2

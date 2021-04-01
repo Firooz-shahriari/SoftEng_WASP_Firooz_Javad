@@ -32,10 +32,6 @@ class error:
         error = Y_predict * self.Y < 0
         return sum(error)/self.N
 
-
-    def theta_gap_path(self, iterates):
-        return np.apply_along_axis( LA.norm, 1, iterates - self.theta_opt ) **2
-
     def cost_gap_path(self, iterates):
         K = len(iterates)
         result = [ ]

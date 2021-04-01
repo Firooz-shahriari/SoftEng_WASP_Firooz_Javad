@@ -27,9 +27,9 @@ class Random:
         indices = np.arange(edges)
         np.random.shuffle(indices)
         nonz = np.int(np.floor(edges*self.prob))
-        ind = indices[:nonz]
+        non_zero_ind = indices[:nonz]
         Z = np.zeros(edges)
-        Z[ind] = 1.0
+        Z[non_zero_ind] = 1.0
         D = Z.reshape(self.size,self.size)
 
         for i in range(self.size):
@@ -58,9 +58,9 @@ class Random:
         indices = np.arange(nn)
         np.random.shuffle(indices)
         nonz = np.int(np.floor(nn*self.prob))
-        ind = indices[:nonz]
+        non_zero_ind = indices[:nonz]
         Z = np.zeros(nn)
-        Z[ind] = 1.0
+        Z[non_zero_ind] = 1.0
         U = Z.reshape(self.size,self.size)
         for i in range(self.size):
             if U[i][i] == 1.:

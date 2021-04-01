@@ -5,6 +5,7 @@ from matplotlib.font_manager import FontProperties
 from graph import Exponential, Random
 from analysis import error
 from problem import problem
+from check import graph_check
 from utilities import graph_matrices, plot_figs, plot_graph
 import Algorithms as dopt
 import matplotlib as mpl
@@ -46,6 +47,7 @@ error_lr_1 = error(lr_1,np.zeros(n),0)
 #-------------------------------------------------------------------------------
 pseudo_adj     = Random(n, Edge_prob).directed()
 ZR, ZC, RS, CS = graph_matrices(pseudo_adj, n, LDF)
+graph_check(pseudo_adj, n)  # Introduce assertion
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 theta_ddps = dopt.DDPS(lr_1, RS, CS, p, int( depoch ),theta_1, eps)

@@ -15,20 +15,20 @@ import os
 #-------------------------------------------------------------------------------
 # np.random.seed(0)
 depoch      = 1000
-n           = 10
+size           = 10
 dim         = 20
 LDF         = 2           # Laplacian dividing factor
 Edge_prob   = 0.55        # edge probability
 output_path = "plots"
 
-AA = np.random.randn(n, dim)
-CC = np.random.randn(n, dim)
+AA = np.random.randn(size, dim)
+CC = np.random.randn(size, dim)
 xx = np.random.randn(dim)
-ee = np.random.randn(n)
-bb = np.matmul(AA, xx) + 1*(np.random.rand(n))
+ee = np.random.randn(size)
+bb = np.matmul(AA, xx) + 1*(np.random.rand(size))
 
 # np.random.seed()
-theta_1  = 1*np.random.randn(n,dim)
+theta_1  = 1*np.random.randn(size,dim)
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 # constrianed, my modification to my step_size
@@ -41,22 +41,22 @@ eps = 0.05
 p   = 0.5
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
-lr_1 = problem(n, AA, bb, CC, ee)
-error_lr_1 = error(lr_1,np.zeros(n),0)
+lr_1 = problem(size, AA, bb, CC, ee)
+error_lr_1 = error(lr_1,np.zeros(size),0)
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
-pseudo_adj     = Random(n, Edge_prob).directed()
-ZR, ZC, RS, CS = graph_matrices(pseudo_adj, n, LDF)
-graph_check(pseudo_adj, n)  # Introduce assertion
+pseudo_adj     = Random(size, Edge_prob).directed()
+ZR, ZC, RS, CS = graph_matrices(pseudo_adj, size, LDF)
+graph_check(pseudo_adj, size)  # Introduce assertion
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 theta_ddps = dopt.DDPS(lr_1, RS, CS, p, int( depoch ),theta_1, eps)
-res_F_ddps = error_lr_1.cost_gap_path( np.sum(theta_ddps,axis = 1)/n)
-fesgp_ddps = error_lr_1.feasibility_gap(np.sum(theta_ddps,axis = 1)/n)
+res_F_ddps = error_lr_1.cost_gap_path( np.sum(theta_ddps,axis = 1)/size)
+fesgp_ddps = error_lr_1.feasibility_gap(np.sum(theta_ddps,axis = 1)/size)
 
 theta_DAGP = dopt.ADDOPT(lr_1, ZR, ZC, step_size4, int( depoch ), theta_1)
-res_F_DAGP = error_lr_1.cost_path( np.sum(theta_DAGP,axis = 1)/n)
-fesgp_DAGP = error_lr_1.feasibility_gap(np.sum(theta_DAGP,axis = 1)/n)
+res_F_DAGP = error_lr_1.cost_path( np.sum(theta_DAGP,axis = 1)/size)
+fesgp_DAGP = error_lr_1.feasibility_gap(np.sum(theta_DAGP,axis = 1)/size)
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 plot_figs(res_F_DAGP, res_F_ddps, 16, 15, 5000, 2, 'Objective Value',   'Iterations', ('ADDOPT', 'DDPS'), os.path.join(output_path, 'objective'),   Block = False )

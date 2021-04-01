@@ -16,7 +16,6 @@ def monitor_testing(name,current,total):
     if (current+1) % (total/10) == 0:
         return f'{name} {int(100*(current+1)/total)}% completed'
 
-
 def graph_matrices(pseudo_adj, size, LDF):
     max_sum_in, l_in   = laplacian_matrix(pseudo_adj, 1, size)
     max_sum_out, l_out = laplacian_matrix(pseudo_adj, 0, size)

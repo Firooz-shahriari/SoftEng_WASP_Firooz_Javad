@@ -38,8 +38,8 @@ class Random:
 
         """ Until here, we have the adjacency matrix of arandom directed graph,
             but we are not sure whether it is stringly connected or not! """
-        GG = nx.from_numpy_matrix(D, create_using=nx.DiGraph)
-        largest = max(nx.kosaraju_strongly_connected_components(GG), key=len)
+        graph = nx.from_numpy_matrix(D, create_using=nx.DiGraph)
+        largest = max(nx.kosaraju_strongly_connected_components(graph), key=len)
 
         adj = np.zeros((len(largest), len(largest)))
         v = 0

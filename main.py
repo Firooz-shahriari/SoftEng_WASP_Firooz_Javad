@@ -17,6 +17,7 @@ depoch      = 1000
 n           = 10
 dim         = 20
 LDF         = 2           # Laplacian dividing factor
+Edge_prob   = 0.55        # edge probability
 output_path = "plots"
 
 AA = np.random.randn(n, dim)
@@ -43,7 +44,7 @@ lr_1 = problem(n, AA, bb, CC, ee)
 error_lr_1 = error(lr_1,np.zeros(n),0)
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
-pseudo_adj     = Random(n, 0.55).directed()
+pseudo_adj     = Random(n, Edge_prob).directed()
 ZR, ZC, RS, CS = graph_matrices(pseudo_adj, n, LDF)
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------

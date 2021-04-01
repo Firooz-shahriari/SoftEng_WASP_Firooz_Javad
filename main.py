@@ -54,7 +54,7 @@ fesgp_ddps = error_lr_1.feasibility_gap_syn2_1(np.sum(theta_ddps,axis = 1)/n)
 
 theta_DAGP = dopt.ADDOPT(lr_1, ZR, ZC, step_size4, int( depoch ), theta_1)
 res_F_DAGP = error_lr_1.cost_path( np.sum(theta_DAGP,axis = 1)/n)
-fesgp_DAGP = error_lr_1.feasibility_gap_syn2_1(np.sum(theta_DAGP,axis = 1)/n)
+fesgp_DAGP = error_lr_1.feasibility_gap(np.sum(theta_DAGP,axis = 1)/n)
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 plot_figs(res_F_DAGP, res_F_ddps, 16, 15, 5000, 2, 'Objective Value',   'Iterations', ('ADDOPT', 'DDPS'), os.path.join(output_path, 'objective'),   Block = False )

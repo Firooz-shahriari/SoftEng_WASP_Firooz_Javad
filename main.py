@@ -50,7 +50,7 @@ ZR, ZC, RS, CS = graph_matrices(pseudo_adj, n, LDF)
 #-------------------------------------------------------------------------------
 theta_ddps = dopt.DDPS(lr_1, RS, CS, p, int( depoch ),theta_1, eps)
 res_F_ddps = error_lr_1.cost_gap_path( np.sum(theta_ddps,axis = 1)/n)
-fesgp_ddps = error_lr_1.feasibility_gap_syn2_1(np.sum(theta_ddps,axis = 1)/n)
+fesgp_ddps = error_lr_1.feasibility_gap(np.sum(theta_ddps,axis = 1)/n)
 
 theta_DAGP = dopt.ADDOPT(lr_1, ZR, ZC, step_size4, int( depoch ), theta_1)
 res_F_DAGP = error_lr_1.cost_path( np.sum(theta_DAGP,axis = 1)/n)

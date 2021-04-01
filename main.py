@@ -5,7 +5,7 @@ from matplotlib.font_manager import FontProperties
 from graph import Exponential, Random
 from analysis import error
 from problem import problem
-from utilities import graph_matrices
+from utilities import graph_matrices, plot_figs
 import Algorithms as dopt
 import matplotlib as mpl
 import time
@@ -56,53 +56,11 @@ res_F_DAGP = error_lr_1.cost_path( np.sum(theta_DAGP,axis = 1)/n)
 fesgp_DAGP = error_lr_1.feasibility_gap_syn2_1(np.sum(theta_DAGP,axis = 1)/n)
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
-# plt.rcParams['font.size'] = 28
-mpl.rcParams['text.usetex'] = True
-plt.rcParams['axes.linewidth'] = 2
-plt.rcParams["font.family"] = "Arial"
-font = FontProperties()
-font.set_size(16)
-font2 = FontProperties()
-font2.set_size(15)
-mark_every = 5000
-linewidth = 2
-
-plt.figure(1, figsize=(7, 4))
-plt.plot(res_F_DAGP,'-oy', markevery = mark_every, linewidth = linewidth)
-plt.plot(res_F_ddps,'-^b', markevery = mark_every, linewidth = linewidth)
-plt.grid(True)
-plt.yscale('log')
-# plt.tick_params(labelsize='large', width=3)
-plt.tick_params(labelsize=16, width=3)
-# plt.ticklabel_format(axis='x', style='sci', scilimits=(0, 4),) # just copied
-plt.ylabel(r'\textbf{Objective Value}', fontproperties=font2)
-plt.xlabel(r'\textbf{Iterations}', fontproperties=font)
-plt.legend((r'\textbf{ADDOPT}', r'\textbf{DDPS}'), prop={'size': 17}) #copied from .
-filename = str(time.time()).split(".")[0]
-timestamp = np.array([int(filename)])
-filename = str(timestamp[0])
-path = os.path.join(output_path, 'objective')
-plt.savefig( path + ".pdf", format = 'pdf', dpi = 4000, pad_inches=0.05, bbox_inches ='tight')
-plt.show(block = False)
-#------------------------------------------------------------------------------
-
-plt.figure(2, figsize=(7, 4))
-plt.plot(fesgp_DAGP,'-oy', markevery = mark_every, linewidth = linewidth)
-plt.plot(fesgp_ddps,'-^b', markevery = mark_every, linewidth = linewidth)
-plt.grid(True)
-plt.yscale('log')
-# plt.tick_params(labelsize='large', width=3)
-plt.tick_params(labelsize=16, width=3)
-plt.ylabel(r'\textbf{Feasibility Error}', fontproperties=font2)
-plt.xlabel(r'\textbf{Iterations}', fontproperties=font)
-plt.legend((r'\textbf{ADDOPT}', r'\textbf{DDPS}'), loc = 1, prop={'size': 17}) #copied from .
-filename = str(timestamp[0]+1)
-path = os.path.join(output_path, 'feasibility')
-plt.savefig( path + ".pdf", format = 'pdf', dpi = 4000, pad_inches=0.05, bbox_inches ='tight')
-plt.show(block = False)
+plot_figs(res_F_DAGP, res_F_ddps, 16, 15, 5000, 2, 'Objective Value',   'Iterations', ('ADDOPT', 'DDPS'), os.path.join(output_path, 'objective'),   Block = False )
+plot_figs(fesgp_DAGP, fesgp_ddps, 16, 15, 5000, 2, 'Feasibility Error', 'Iterations', ('ADDOPT', 'DDPS'), os.path.join(output_path, 'feasibility'), Block = False )
 #------------------------------------------------------------------------------
 plt.figure(5)
-G = nx.from_numpy_matrix(np.matrix(UG), create_using=nx.DiGraph)
+G = nx.from_numpy_matrix(np.matrix(pseudo_adj), create_using=nx.DiGraph)
 layout = nx.circular_layout(G)
 nx.draw(G, layout)
 path = os.path.join(output_path, 'graph')
